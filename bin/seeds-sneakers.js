@@ -14,7 +14,7 @@ mongoose
 
 const sneakers = [
     {
-        image: "../public/medias/air-max.png",
+        image: "../medias/air-max.png",
         name: "Air Max",
         ref: "air-max",
         sizes: [38, 39, 40, 41, 42, 43],
@@ -25,7 +25,7 @@ const sneakers = [
     },
 
     {
-        image: "../public/medias/stan-smith.webp",
+        image: "../medias/stan-smith.webp",
         name: "Stan Smith",
         ref: "stan-smith",
         sizes: [38, 39, 40, 41, 42, 43],
@@ -36,7 +36,7 @@ const sneakers = [
     },
 
     {
-        image: "../public/medias/vans-classic.jpeg",
+        image: "../medias/vans-classic.jpeg",
         name: "Vans Classic",
         ref: "vans-classic",
         sizes: [38, 39, 40, 41, 42, 43],
