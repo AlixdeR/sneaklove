@@ -18,10 +18,9 @@ router.get("/sneakers/collection", (req, res) => {
 });
 
 router.get("/sneakers/:cat", (req, res) => {
-  sneakerModel
-  .find({category: req.params.cat})
-  .then(sneakers => {
-    res.render("products", {sneakers});
+  Promise.all([tagModel.find(), sneakerModel.find({category: req.params.cat})])
+  .then(dbRes => {
+    res.render("products", {tags: dbRes[0], sneakers:dbRes[1]});
   })
   .catch(err => console.log("error while load sneaker cat", err));
 });
