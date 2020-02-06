@@ -6,6 +6,7 @@ const tagSchema = new Schema({
   tag: [{
       type: String,
       enum: ['loose', 'sporty', 'smart', 'urban']
+  }]
 });
 
 const tagModel = mongoose.model("tag", tagSchema);
