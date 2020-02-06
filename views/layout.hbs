@@ -20,14 +20,9 @@
     <link rel="stylesheet" href="/css/products.css">
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/form.css">
-    {{#if needAJAX}}
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    {{/if}}
-    {{#each js}}
-    <script src="/js/{{this}}.js" type="module"></script>
-    {{/each}}
-    {{#each scripts}}
-    <script src="/scripts/{{this}}" type="module"></script>
+    {{#each script}}
+    <script src="/scripts/{{this}}.js" type="module"></script>
     {{/each}}
 </head>
 

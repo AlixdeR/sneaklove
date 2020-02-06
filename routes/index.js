@@ -11,8 +11,7 @@ router.get("/", (req, res) => {
 router.get("/sneakers/collection", (req, res) => {
   Promise.all([tagModel.find(), sneakerModel.find()])
   .then(dbRes => {
-    console.log(dbRes)
-    res.render("products", {tags:dbRes[0], sneakers:dbRes[1]});
+    res.render("products", {tags:dbRes[0], sneakers:dbRes[1], script: ["tag-selector"]});
   })
   .catch(err => console.log("error while load sneakers", err))
 });
@@ -24,6 +23,14 @@ router.get("/sneakers/:cat", (req, res) => {
   })
   .catch(err => console.log("error while load sneaker cat", err));
 });
+
+// router.get("/sneakers/?tag", (req, res) => {
+//   //
+//   .then(dbRes => {
+//     //res.render("products", {tags: dbRes[0], sneakers:dbRes[1]});
+//   })
+//   .catch(err => console.log("error while load sneaker cat", err));
+// });
 
 router.get("/one-product/:id", (req, res) => {
   sneakerModel
@@ -41,6 +48,33 @@ router.get("/signup", (req, res) => {
 router.get("/signin", (req, res) => {
   res.render("signin");
 });
+
+router.post("/test-tags", (req, res) => {
+
+  var query = undefined
+  if (req.body.length===0) {
+    sneakerModel
+    .find()
+    .then(sneakers => {
+      res.send(sneakers)
+    })
+    .catch(err=> console.log("error", err));
+  }
+  else {
+    sneakerModel
+    .find({id_tags: {$in: req.body}})
+    .then(sneakers => {
+      res.send(sneakers)
+    })
+    .catch(err=> console.log("error", err));
+  }
+
+  
+});
+
+
+
+
 
 
 module.exports = router;

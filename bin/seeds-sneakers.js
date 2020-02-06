@@ -21,7 +21,7 @@ const sneakers = [
         description: "Sneakers Air Max",
         price: 120,
         category: ["men", "women"],
-        id_tags: "5e3bfade80caf4188e3614d1"
+        id_tags: ["5e3c1141aecda337745af1c4", "5e3c1141aecda337745af1c5"]
     },
 
     {
@@ -32,7 +32,7 @@ const sneakers = [
         description: "Sneakers Stan Smith",
         price: 90,
         category: ["men", "women"],
-        id_tags: ["5e3bfade80caf4188e3614d2", "5e3bfade80caf4188e3614d3"]
+        id_tags: ["5e3c1141aecda337745af1c4", "5e3c1141aecda337745af1c6"]
     },
 
     {
@@ -43,7 +43,7 @@ const sneakers = [
         description: "Sneakers Vans Classic",
         price: 60,
         category: ["men", "women"],
-        id_tags: "5e3bfade80caf4188e3614d0"
+        id_tags: "5e3c1141aecda337745af1c4"
     },
 ];
 
