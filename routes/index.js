@@ -12,7 +12,7 @@ router.get("/sneakers/collection", (req, res) => {
   Promise.all([tagModel.find(), sneakerModel.find()])
   .then(dbRes => {
     console.log(dbRes)
-    //res.render("products", {tags:dbRes[0], sneakers:dbRes[1]});
+    res.render("products", {tags:dbRes[0], sneakers:dbRes[1]});
   })
   .catch(err => console.log("error while load sneakers", err))
 });
