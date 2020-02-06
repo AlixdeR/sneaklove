@@ -1,4 +1,4 @@
-return console.log("node says : waxOn/waxOff !");
+console.log("node says : waxOn/waxOff !");
 
 require("dotenv").config();
 require("./config/mongodb"); // database initial setup
@@ -7,13 +7,14 @@ require("./helpers/hbs"); // utils for hbs templates
 
 // base dependencies
 const express = require("express");
-const hbo = require("hbs");
+const hbs = require("hbs");
 const app = express();
 const session = require("express-session");
 const mongoose = require("mongoose");
 const MongoStore = require("connect-mongo")(session);
 const cookieParser = require("cookie-parser");
 
+// const path = require("path"); (utile ?)
 
 // initial config
 app.set("view engine", "hbs");
@@ -39,7 +40,8 @@ app.use(
   })
 );
 
-app.locals.site_url = process.env.SITE_URL;
+app.locals.site_url = `http://localhost:${process.env.PORT}`;
+//SITE-URL ???
 // used in front end to perform ajax request (var instead of hardcoded)
 
 // CUSTOM MIDDLEWARE
@@ -47,37 +49,37 @@ app.locals.site_url = process.env.SITE_URL;
 // usecases : conditional display in hbs templates
 // WARNING: this function must be declared AFTER the session setup
 // WARNING: this function must be declared BEFORE app.use(router(s))
-function checkloginStatus(req, res, next) {
-  res.locals.user = req.session.currentUser ? req.session.currentUser : null; 
-  // access this value @ {{user}} or {{user.prop}} in .hbs
-  res.locals.isLoggedIn = Boolean(req.session.currentUser);
-  // access this value @ {{isLoggedIn}} in .hbs
-  next(); // continue to the requested route
-}
+// function checkloginStatus(req, res, next) {
+//   res.locals.user = req.session.currentUser ? 1 : 1 ; 
+//   // A MODIFIER POUR LA CONFIGURATION DU LOGIN
+//    req.session.currentUser : null; 
+//   // access this value @ {{user}} or {{user.prop}} in .hbs
+//   res.locals.isLoggedIn = Boolean(req.session.currentUser);
+//   // access this value @ {{isLoggedIn}} in .hbs
+//   next(); // continue to the requested route
+// }
 
-function eraseSessionMessage() {
-  var count = 0; // initialize counter in parent scope and use it in inner function
-  return function(req, res, next) {
-    if (req.session.msg) { // only increment if session contains msg
-      if (count) { // if count greater than 0
-        count = 0; // reset counter
-        req.session.msg = null; // reset message
-      }
-      ++count; // increment counter
-    }
-    next(); // continue to the requested route
-  };
-}
+// function eraseSessionMessage() {
+//   var count = 0; // initialize counter in parent scope and use it in inner function
+//   return function(req, res, next) {
+//     if (req.session.msg) { // only increment if session contains msg
+//       if (count) { // if count greater than 0
+//         count = 0; // reset counter
+//         req.session.msg = null; // reset message
+//       }
+//       ++count; // increment counter
+//     }
+//     next(); // continue to the requested route
+//   };
+// }
 
-app.use(checkloginStatus);
-app.use(eraseSessionMessage());
+// app.use(checkloginStatus);
+// app.use(eraseSessionMessage());
 
 // Getting/Using router(s)
 const basePageRouter = require("./routes/index");
 app.use("/", basePageRouter);
 
-const listener = app.listen(process.env.PORT, () => {
-  console.log(
-    `app started at ${process.env.SITE_URL}:${process.env.PORT}`
-  );
-});
+
+module.exports = app
+
