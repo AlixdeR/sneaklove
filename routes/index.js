@@ -18,11 +18,21 @@ router.get("/sneakers/collection", (req, res) => {
 });
 
 router.get("/sneakers/:cat", (req, res) => {
-  res.send("bar");
+  sneakerModel
+  .find({category: req.params.cat})
+  .then(sneakers => {
+    res.render("products", {sneakers});
+  })
+  .catch(err => console.log("error while load sneaker cat", err));
 });
 
 router.get("/one-product/:id", (req, res) => {
-  res.render("one_product", sneaker);
+  sneakerModel
+  .findById(req.params.id)
+  .then(sneaker => {
+    res.render("one_product", {sneaker});
+  })
+  .catch(err => console.log("error while load one sneaker", err))
 });
 
 router.get("/signup", (req, res) => {
