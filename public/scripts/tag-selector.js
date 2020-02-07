@@ -24,7 +24,7 @@ tagElems.forEach(el => {
         const tagChecked=getTagsChecked();
 
 
-        sneakApi.post("/test-tags", tagChecked)
+        sneakApi.post("/tag-selection", tagChecked)
         .then(dbRes => {
             const sneakers = dbRes.data;
 
@@ -43,18 +43,10 @@ tagElems.forEach(el => {
                 <p class="product-cat">${sneaker.category}</p>
                 <p class="product-price">${sneaker.price}</p>`
 
-                
-
                 sneakerParent.appendChild(sneakerElem)
             })
         })
         .catch(err => console.log(err))
-
-    
-        
-
-        //post machin
-
         
     }
 });

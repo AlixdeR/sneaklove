@@ -19,7 +19,7 @@ router.get("/sneakers/collection", (req, res) => {
 router.get("/sneakers/:cat", (req, res) => {
   Promise.all([tagModel.find(), sneakerModel.find({category: req.params.cat})])
   .then(dbRes => {
-    res.render("products", {tags: dbRes[0], sneakers:dbRes[1]});
+    res.render("products", {tags: dbRes[0], sneakers:dbRes[1], script: ["tag-selector"]});
   })
   .catch(err => console.log("error while load sneaker cat", err));
 });
@@ -49,7 +49,7 @@ router.get("/signin", (req, res) => {
   res.render("signin");
 });
 
-router.post("/test-tags", (req, res) => {
+router.post("/tag-selection", (req, res) => {
 
   var query = undefined
   if (req.body.length===0) {
@@ -71,10 +71,5 @@ router.post("/test-tags", (req, res) => {
 
   
 });
-
-
-
-
-
 
 module.exports = router;
