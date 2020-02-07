@@ -2,8 +2,9 @@ const express = require("express"); // import express in this module
 const router = new express.Router(); // create an app sub-module (router)
 const sneakerModel = require("../models/Sneaker");
 const tagModel = require("../models/Tag");
+const checkloginStatus = require("./../middlewares/checkloginStatus");
 
-router.get("/", (req, res) => {
+router.get("/", checkloginStatus, (req, res) => {
     sneakerModel
         .find()
         .then(sneakers => {
@@ -15,18 +16,38 @@ router.get("/", (req, res) => {
         .catch(dbErr => console.log("error loading sneakers on dashboard", dbErr));
 });
 
-router.get("/edit/:id", (req, res) => {
-    Promise.all([tagModel.find(), sneakerModel.findById(req.params.id)])
+router.get("/edit/:id", checkloginStatus, (req, res) => {
+    Promise.all([tagModel.find(),sneakerModel.findById(req.params.id)])
         .then(dbRes => {
+            
+            // const allTags = dbRes[0];
+            // const sneakerTags = dbRes[1].id_tags;
+            // // console.log(sneakerTags)
+
+            // var tagsInSneakers = []
+            // allTags.forEach((el, i) => {
+            //     tagsInSneakers[i]=false
+            //     var allTags[i].true=false
+            //     sneakerTags.forEach((el2) => {
+            //         if (el === el2) {
+            //             tagsInSneakers[i]=true
+            //             dbRes[0][i].true=true
+            //         }
+            //     })
+            // });
+
+            // console.log(tagsInSneakers)
+            // console.log(dbRes[0])
+
             res.render("product_edit", {
                 sneaker: dbRes[1],
-                tags: dbRes[0]
+                tags: dbRes[0],
             });
         })
         .catch(dbErr => console.log("error loading sneaker edit on dashboard", dbErr));
 })
 
-router.post("/edit/:id", (req, res, next) => {
+router.post("/edit/:id", checkloginStatus, (req, res, next) => {
     const {
         image,
         name,
@@ -71,7 +92,7 @@ router.post("/edit/:id", (req, res, next) => {
         .catch(next);
 });
 
-router.get("/delete/:id", (req, res) => {
+router.get("/delete/:id", checkloginStatus,(req, res) => {
     sneakerModel
         .findByIdAndDelete(req.params.id)
         .then(dbRes => {
@@ -81,17 +102,16 @@ router.get("/delete/:id", (req, res) => {
         .catch(dbErr => console.log("error deleting sneaker", dbErr));
 });
 
-router.get("/add", (req, res) => {
+router.get("/add",checkloginStatus, (req, res) => {
     tagModel
     .find()
     .then(tags => {
         res.render("products_add", {tags});
     })
     .catch(dbErr => console.log("error loading add sneaker", dbErr));
-    
 });
 
-router.post("/add", (req, res,next) => {
+router.post("/add",checkloginStatus, (req, res,next) => {
     const {
         image,
         name,
@@ -134,6 +154,22 @@ router.post("/add", (req, res,next) => {
             res.redirect("/dashboard")
         })
         .catch(next);
+});
+
+router.post("/add-tag",checkloginStatus, (req, res,next) => {
+
+
+    console.log("reqbody", req.body)
+    const {name} = req.body;
+
+    tagModel
+        .create({name})
+        .then(() => {
+            req.flash("success", "tag successfully created");
+            res.redirect("/dashboard")
+        })
+        .catch(next);
+
 });
 
 module.exports = router;

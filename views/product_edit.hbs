@@ -25,14 +25,33 @@
       <label for="sneaker-price" class="label-price label">Price</label>
       <input id="sneaker-price" name="price" type="number" class="sneaker-price input" min="1" value="{{sneaker.price}}">
     </div>
-    <div class="form-item-wrapper flexed-item">
-      <label for="sneaker-main-cat" class="label-main-cat label">Choose main Category...</label>
-      <input type="checkbox" name="men" class="select">
+    <label for="sneaker-main-cat" class="label-main-cat label">Choose main category...</label>
+     <div class="form-item-wrapper">
+
+      <input type="checkbox" name="men" class="select" 
+      {{#each sneaker.category}}
+      {{#compare this "men" operator="==="}}
+        checked
+      {{/compare}}
+      {{/each}}>
       <label value="men">Men</label>
-      <input type="checkbox" name="women" class="select">
+
+      <input type="checkbox" name="women" class="select"
+      {{#each sneaker.category}}
+      {{#compare this "women" operator="==="}}
+        checked
+      {{/compare}}
+      {{/each}}>
       <label value="women">Women</label>
-      <input type="checkbox" name="kids" class="select">
+
+      <input type="checkbox" name="kids" class="select"
+      {{#each sneaker.category}}
+      {{#compare this "kids" operator="==="}}
+        checked
+      {{/compare}}
+      {{/each}}>
       <label value="kids">Kids</label>
+      
     </div>
     <div class="form-item-wrapper flexed-item">
       <label class="label">Tags</label>

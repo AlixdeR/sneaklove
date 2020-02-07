@@ -52,15 +52,7 @@ app.locals.site_url = `http://localhost:${process.env.PORT}`;
 // usecases : conditional display in hbs templates
 // WARNING: this function must be declared AFTER the session setup
 // WARNING: this function must be declared BEFORE app.use(router(s))
-// function checkloginStatus(req, res, next) {
-//   res.locals.user = req.session.currentUser ? 1 : 1 ; 
-//   // A MODIFIER POUR LA CONFIGURATION DU LOGIN
-//    req.session.currentUser : null; 
-//   // access this value @ {{user}} or {{user.prop}} in .hbs
-//   res.locals.isLoggedIn = Boolean(req.session.currentUser);
-//   // access this value @ {{isLoggedIn}} in .hbs
-//   next(); // continue to the requested route
-// }
+
 
 // function eraseSessionMessage() {
 //   var count = 0; // initialize counter in parent scope and use it in inner function
@@ -76,8 +68,7 @@ app.locals.site_url = `http://localhost:${process.env.PORT}`;
 //   };
 // }
 
-// app.use(checkloginStatus);
-// app.use(eraseSessionMessage());
+// app.use(eraseSessionMessage);
 
 // Getting/Using router(s)
 const basePageRouter = require("./routes/index");
