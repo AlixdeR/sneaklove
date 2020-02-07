@@ -1,2 +1,4 @@
 node_modules/
-bin/
+bin/seeds-sneakers.js
+bin/www
+bin/seeds-tags.js

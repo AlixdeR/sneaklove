@@ -84,6 +84,7 @@ const basePageRouter = require("./routes/index");
 app.use("/", basePageRouter);
 
 app.use("/auth", require("./routes/auth"));
+app.use("/dashboard", require("./routes/dashboard"));
 
 module.exports = app
 

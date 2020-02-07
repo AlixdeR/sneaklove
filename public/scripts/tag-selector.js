@@ -2,6 +2,7 @@
 const sneakApi = axios.create({})
 
 
+const category = document.getElementById("pasta").getAttribute("id-cat")
 const tagElems = document.querySelectorAll(".checkbox-tags")
 
 function getTagsChecked() {
@@ -24,7 +25,7 @@ tagElems.forEach(el => {
         const tagChecked=getTagsChecked();
 
 
-        sneakApi.post("/tag-selection", tagChecked)
+        sneakApi.post("/tag-selection",{tagChecked, category})
         .then(dbRes => {
             const sneakers = dbRes.data;
 
@@ -37,7 +38,7 @@ tagElems.forEach(el => {
                 sneakerElem.classList.add("product-item-wrapper")
                 sneakerElem.href= "/one-product/" + sneaker.id;
                 sneakerElem.innerHTML = `<div class="product-img">
-                <img src="${sneaker.image}" alt="${sneaker.name} : what a nice pair of kicks">
+                <img src="/medias/${sneaker.image}" alt="${sneaker.name} : what a nice pair of kicks">
                 </div>
                 <p class="product-name">${sneaker.name}</p>
                 <p class="product-cat">${sneaker.category}</p>
