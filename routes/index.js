@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const tagModel = require("../models/Tag");
 const sneakerModel = require("../models/Sneaker");
-const userModel = require("../models/User");
 
 router.get("/", (req, res) => {
   res.render("index");
@@ -24,14 +23,6 @@ router.get("/sneakers/:cat", (req, res) => {
   .catch(err => console.log("error while load sneaker cat", err));
 });
 
-// router.get("/sneakers/?tag", (req, res) => {
-//   //
-//   .then(dbRes => {
-//     //res.render("products", {tags: dbRes[0], sneakers:dbRes[1]});
-//   })
-//   .catch(err => console.log("error while load sneaker cat", err));
-// });
-
 router.get("/one-product/:id", (req, res) => {
   sneakerModel
   .findById(req.params.id)
@@ -39,14 +30,6 @@ router.get("/one-product/:id", (req, res) => {
     res.render("one_product", {sneaker});
   })
   .catch(err => console.log("error while load one sneaker", err))
-});
-
-router.get("/signup", (req, res) => {
-  res.render("signup");
-});
-
-router.get("/signin", (req, res) => {
-  res.render("signin");
 });
 
 router.post("/tag-selection", (req, res) => {

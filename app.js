@@ -13,6 +13,7 @@ const session = require("express-session");
 const mongoose = require("mongoose");
 const MongoStore = require("connect-mongo")(session);
 const cookieParser = require("cookie-parser");
+const flash = require("connect-flash");
 
 // const path = require("path"); (utile ?)
 
@@ -39,6 +40,8 @@ app.use(
     resave: true
   })
 );
+
+app.use(flash());
 
 app.locals.site_url = `http://localhost:${process.env.PORT}`;
 //SITE-URL ???
@@ -80,6 +83,7 @@ app.locals.site_url = `http://localhost:${process.env.PORT}`;
 const basePageRouter = require("./routes/index");
 app.use("/", basePageRouter);
 
+app.use("/auth", require("./routes/auth"));
 
 module.exports = app
 
