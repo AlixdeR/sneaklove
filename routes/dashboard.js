@@ -20,24 +20,28 @@ router.get("/edit/:id", checkloginStatus, (req, res) => {
     Promise.all([tagModel.find(),sneakerModel.findById(req.params.id)])
         .then(dbRes => {
             
-            // const allTags = dbRes[0];
-            // const sneakerTags = dbRes[1].id_tags;
+            var allTags = dbRes[0];
+            const sneakerTags = dbRes[1].id_tags;
             // // console.log(sneakerTags)
-
-            // var tagsInSneakers = []
+            const newArray = allTags.map((val, i)=> {
+                console.log({...val})
+                return {...val.toObject(), isTrue: false}
+            })
+            console.log(newArray)
+            
             // allTags.forEach((el, i) => {
-            //     tagsInSneakers[i]=false
-            //     var allTags[i].true=false
+            //     console.log(i, allTags[i], typeof allTags[i])
+            //     allTags[i]["isTrue"]="false"
             //     sneakerTags.forEach((el2) => {
-            //         if (el === el2) {
-            //             tagsInSneakers[i]=true
-            //             dbRes[0][i].true=true
+            //         console.log(el._id, el2)
+            //         if (el._id == el2) {
+            //             console.log("ok")
+            //             allTags[i]["isTrue"]="true"
             //         }
             //     })
             // });
 
-            // console.log(tagsInSneakers)
-            // console.log(dbRes[0])
+            // console.log(allTags)
 
             res.render("product_edit", {
                 sneaker: dbRes[1],

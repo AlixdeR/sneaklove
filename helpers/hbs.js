@@ -7,6 +7,16 @@ const hbs = require("hbs");
 // usage : {{ternary NaN "yay" "nay "}} => prints nay
 hbs.registerHelper("ternary", (test, yes, no) => (test ? yes : no));
 
+
+hbs.registerHelper("selectedTag", (sneaker,tag) => {
+  if (sneaker!==undefined) {
+      if(sneaker.id_tags.includes(tag._id)){
+      return `   <option selected value=${tag._id}>${tag.name}</option>`
+    } else return   `<option  value=${tag._id}>${tag.name}</option>`
+  }
+
+})
+
 // add comparison operator feature to hbs templates
 /* 
 
